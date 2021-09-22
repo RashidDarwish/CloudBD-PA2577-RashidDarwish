@@ -1,3 +1,5 @@
+# Vagrant
+.vagrant
 # JetBrains IDE
 .idea/
 *.iml
