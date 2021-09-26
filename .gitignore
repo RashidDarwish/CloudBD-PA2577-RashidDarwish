@@ -3,3 +3,5 @@
 # JetBrains IDE
 .idea/
 *.iml
+# local scratch testing dir
+scratch/
