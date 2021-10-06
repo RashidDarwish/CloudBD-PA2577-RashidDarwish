@@ -5,7 +5,7 @@ Exec { "apt-get update":
 }
 
 node 'appserver' {
-  include node.js
+  include nodejs
 }
 
 node 'dbserver' {
