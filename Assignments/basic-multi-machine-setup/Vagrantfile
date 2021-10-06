@@ -10,11 +10,11 @@ BOX_CPU_COUNT = "1"
 
 nodes = [
   { :hostname => 'appserver',  :ip => '192.168.56.101'},
-  { :hostname => 'dbserver',   :ip => '192.168.56.102'},
-  { :hostname => 'web',        :ip => '192.168.56.103',},
-  { :hostname => 'tst0',    :ip => '192.168.56.104',},
-  { :hostname => 'tst1', :ip => '192.168.56.105',},
-  { :hostname => 'tst2', :ip => '192.168.56.106',},
+#   { :hostname => 'dbserver',   :ip => '192.168.56.102'},
+#   { :hostname => 'web',        :ip => '192.168.56.103'},
+#   { :hostname => 'tst0',    :ip => '192.168.56.104'},
+#   { :hostname => 'tst1', :ip => '192.168.56.105'},
+#   { :hostname => 'tst2', :ip => '192.168.56.106'},
 ]
 
 Vagrant.configure("2") do |config|
@@ -22,9 +22,8 @@ Vagrant.configure("2") do |config|
     config.vm.define node[:hostname] do |nodeconfig|
       nodeconfig.vm.box = VM_BASE_BOX
       nodeconfig.vm.hostname = node[:hostname]
-#       nodeconfig.vm.network :private_network, ip: node[:ip]
-
-      # #      box.vm.network :forwarded_port, guest: 22, host: 10122, id: "ssh"
+      nodeconfig.vm.network :private_network, ip: node[:ip]
+      nodeconfig.vm.network :forwarded_port, guest: 22, host: node[:ip][11,3]#{22}, id: "ssh"
       #  if web:  box.vm.network :forwarded_port, guest: 80, host: 8080, id: "web"
 
 
