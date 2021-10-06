@@ -1,3 +1,5 @@
+#/usr/bin/apt install --reinstall ca-certificates
+
   exec { "apt-update":
     command => "/usr/bin/apt-get update",
 
