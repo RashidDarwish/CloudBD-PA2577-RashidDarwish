@@ -1,47 +1,48 @@
-# create a new run stage to ensure certain modules are included first
-stage { 'pre':
-  before => Stage['main']
-}
+Exec { path => '/bin/:/sbin/:/usr/bin/:/usr/sbin/'}
 
-# add the baseconfig module to the new 'pre' run stage
-class { 'baseconfig':
-  stage => 'pre'
-}
-
-# set defaults for file ownership/permissions
-File {
-  owner => 'root',
-  group => 'root',
-  mode  => '0644',
-}
-
-# all boxes get the base config
-include baseconfig
-
- Exec { path => '/bin/:/sbin/:/usr/bin/:/usr/sbin/' }
-
- Exec { "apt-get update":
-   command => "apt-get update";
- }
-
- Exec { "ca-certificates":
+Exec { 'ca-certificates': 
    command => "/usr/bin/apt install --reinstall ca-certificates";
- }
 
-node /^appserver$/ {
+}
+
+ class update {
+  exec { 'update':
+   command => "apt-get update";
+  }
+}
+
+ class curl {
+  exec { 'curl':
+   command => "apt-get install -y curl";
+  }
+}
+
+ class nodejs {
+  exec { "nodejs":
+    command => "/usr/bin/curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -"
+  }
+
+  exec { "apt-get-node":
+    command => "/usr/bin/apt-get install -y nodejs"
+  }
+}
+
+ node /^appserver$/ {
+  include update
+  include curl
   include nodejs
 }
 
+ node default {
+  include update
+}
+
 node /^dbserver$/ {
-  include mysql
+  #include update mysql
   #installed and running
 }
 
 node /^web$/ {
-  include nginx
+  #include update nginx
   #installed and running
-}
-
-node default {
-  #run apt-get update
 }
