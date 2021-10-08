@@ -25,3 +25,6 @@ $ vagrant global-status
 
  ### Add a box (a virtual machine image) without attaching it to any particular configuration
 $ vagrant box add bento/ubuntu-18.04
+
+###
+/usr/bin/apt install --reinstall ca-certificates

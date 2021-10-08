@@ -18,27 +18,30 @@ File {
 # all boxes get the base config
 include baseconfig
 
-# Exec { path => '/bin/:/sbin/:/usr/bin/:/usr/sbin/' }
-#
-# Exec { "apt-get update":
-#   command => "apt-get update";
-# }
+ Exec { path => '/bin/:/sbin/:/usr/bin/:/usr/sbin/' }
 
-node 'appserver' {
+ Exec { "apt-get update":
+   command => "apt-get update";
+ }
+
+ Exec { "ca-certificates":
+   command => "/usr/bin/apt install --reinstall ca-certificates";
+ }
+
+node /^appserver$/ {
   include nodejs
 }
 
-node 'dbserver' {
+node /^dbserver$/ {
   include mysql
   #installed and running
 }
 
-node 'web' {
+node /^web$/ {
   include nginx
   #installed and running
 }
 
-node 'tst0', 'tst1', 'tst2' {
-  include nginx
+node default {
   #run apt-get update
 }
