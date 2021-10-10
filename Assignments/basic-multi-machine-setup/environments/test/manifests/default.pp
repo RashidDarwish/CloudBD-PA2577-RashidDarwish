@@ -25,16 +25,12 @@ Exec { 'ca-certificates':
   exec { "apt-get-node":
     command => "/usr/bin/apt-get install -y nodejs"
   }
-}
+ }
 
  node /^appserver$/ {
   include update
   include curl
   include nodejs
-}
-
- node default {
-  include update
 }
 
 node /^dbserver$/ {
@@ -50,4 +46,8 @@ File {
   owner => 'root',
   group => 'root',
   mode  => '0644',
+}
+
+ node default {
+  include update
 }

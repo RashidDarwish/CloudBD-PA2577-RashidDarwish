@@ -9,8 +9,8 @@ BOX_CPU_COUNT = "1"
 
 
 nodes = [
-  { :hostname => 'appserver',  :ip => '192.168.56.101'},
-#   { :hostname => 'dbserver',   :ip => '192.168.56.102'},
+#  { :hostname => 'appserver',  :ip => '192.168.56.101'},
+   { :hostname => 'dbserver',   :ip => '192.168.56.102'},
 #   { :hostname => 'web',        :ip => '192.168.56.103'},
 #   { :hostname => 'tst0',    :ip => '192.168.56.104'},
 #   { :hostname => 'tst1', :ip => '192.168.56.105'},
@@ -54,6 +54,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "puppet" do |puppet|
     puppet.manifests_path = "environments/test/manifests/"
     puppet.manifest_file = "default.pp"
+	puppet.module_path = "environments/test/modules/"
+
   end
 
 end

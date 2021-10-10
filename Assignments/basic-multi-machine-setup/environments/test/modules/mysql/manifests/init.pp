@@ -12,8 +12,9 @@ class mysql {
     require => Package['mysql-server'];
   }
 
+/*
   file { '/etc/mysql/my.cnf':
-    source  => 'test///modules/mysql/my.cnf',
+    source  => 'puppet:///modules/mysql/my.cnf',
     require => Package['mysql-server'],
     notify  => Service['mysql'];
   }
@@ -30,4 +31,6 @@ class mysql {
     path    => ['/bin', '/usr/bin'],
     require => Exec['set-mysql-password'];
   }
+*/
+
 }
