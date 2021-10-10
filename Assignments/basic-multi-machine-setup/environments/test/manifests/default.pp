@@ -28,26 +28,23 @@ Exec { 'ca-certificates':
  }
 
  node /^appserver$/ {
-  include update
-  include curl
-  include nodejs
+  include update, curl, nodejs
 }
 
-node /^dbserver$/ {
+ node /^dbserver$/ {
   include mysql
 }
 
-node /^web$/ {
-  #include update nginx
-  #installed and running
-}
-
-File {
-  owner => 'root',
-  group => 'root',
-  mode  => '0644',
+ node /^web$/ {
+  include nginx
 }
 
  node default {
   include update
+}
+
+ File {
+  owner => 'root',
+  group => 'root',
+  mode  => '0644',
 }
