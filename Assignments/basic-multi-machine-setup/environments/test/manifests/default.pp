@@ -38,11 +38,16 @@ Exec { 'ca-certificates':
 }
 
 node /^dbserver$/ {
-  #include update mysql
-  #installed and running
+  include mysql
 }
 
 node /^web$/ {
   #include update nginx
   #installed and running
+}
+
+File {
+  owner => 'root',
+  group => 'root',
+  mode  => '0644',
 }
