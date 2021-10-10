@@ -29,8 +29,9 @@ $ vagrant box add bento/ubuntu-18.04
 ###/usr/bin/apt install --reinstall ca-certificates
 
 ##Test Multi machines:
-####  $vagrant ssh appserver -c "node --version && npm --version"
+$vagrant ssh appserver -c "node --version && npm --version"
+$curl http://127.0.0.1:8080/
+$vagrant ssh dbserver -c "mysqlshow --user=root --password=<YOUR_ROOT_PASSWORD>"
 
-#### $curl http://127.0.0.1:8080/
-
-#### $vagrant ssh dbserver -c "mysqlshow --user=root --password=<YOUR_ROOT_PASSWORD>"
+### IP-address from each machine:
+$ ifconfig eth0 | grep inet | awk '{ print $2 }' | awk -F: '{print $2}' | head -1
