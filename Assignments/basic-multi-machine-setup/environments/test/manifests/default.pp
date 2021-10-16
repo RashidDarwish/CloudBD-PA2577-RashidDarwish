@@ -1,6 +1,6 @@
 Exec { path => '/bin/:/sbin/:/usr/bin/:/usr/sbin/'}
 
-Exec { 'ca-certificates': 
+Exec { 'ca-certificates':
    command => "/usr/bin/apt install --reinstall ca-certificates";
 
 }
@@ -27,12 +27,20 @@ Exec { 'ca-certificates':
   }
  }
 
+   class { 'mysql::server':
+     root_password           => 'strongpassword',
+     remove_default_accounts => true,
+     restart                 => true,
+     # override_options        => $override_options,
+   }
+
  node /^appserver$/ {
   include update, curl, nodejs
 }
 
  node /^dbserver$/ {
-  include mysql
+  include 'mysql::server'
+
 }
 
  node /^web$/ {
